@@ -50,7 +50,6 @@
     .menu .dropdown:hover .submenu {
         display: block;
     }
-
     .container {
       max-width: 600px;
       margin: 50px auto;
@@ -103,7 +102,8 @@
   </style>
 </head>
 <body>
-<div class="menu">
+
+  <div class="menu">
     <div class="dropdown">
         <a href="#">Cadastro</a>
         <div class="submenu">
@@ -122,9 +122,7 @@
             <a href="associardeletarprodutoprojeto.php">Associação Projeto-Produto</a>
         </div>
     </div>
-</div>  
-
-
+</div>
   <div class="container">
     <h1>Cadastro de Estabelecimento</h1>
     <form method="POST" action="">

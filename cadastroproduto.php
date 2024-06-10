@@ -5,6 +5,45 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cadastro de Produto</title>
 <style>
+
+.menu {
+        background-color: #333;
+        overflow: hidden;
+    }
+    .menu a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    .menu a:hover, .submenu a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    .submenu {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        min-width: 160px;
+        z-index: 1;
+    }
+    .submenu a {
+        float: none;
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+    .menu .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+    .menu .dropdown:hover .submenu {
+        display: block;
+    }
     body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
@@ -61,6 +100,27 @@
 </style>
 </head>
 <body>
+
+<div class="menu">
+        <div class="dropdown">
+            <a href="#">Cadastro</a>
+            <div class="submenu">
+                <a href="cadastroestabelecimento.php">Estabelecimento</a>
+                <a href="cadastroprojeto.php">Projeto</a>
+                <a href="cadastroproduto.php">Produto</a>
+                <a href="associacaoprodutoprojeto.php">Associação Projeto-Produto</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Listagem</a>
+            <div class="submenu">
+                <a href="editardeletarestabelecimento.php">Estabelecimento</a>
+                <a href="editardeletarprojeto.php">Projeto</a>
+                <a href="editardeletarproduto.php">Produto</a>
+                <a href="associardeletarprodutoprojeto.php">Associação Projeto-Produto</a>
+            </div>
+        </div>
+    </div>  
 <div class="container">
     <h1>Cadastro de Produto</h1>
     <form action="cadastroproduto.php" method="POST">
