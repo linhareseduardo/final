@@ -62,7 +62,7 @@
 <body>
 <div class="container">
     <h1>Cadastro de Projeto</h1>
-    <form action="teste.php" method="POST">
+    <form action="cadastroprojeto.php" method="POST">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" maxlength="255" required>
         <label for="descricao">Descrição:</label>
