@@ -147,6 +147,7 @@
 
 <div class="container">
     <h1>Listagem de Produtos</h1>
+    <button class="btn" onclick="openAddModal()">Cadastrar Produto</button>
     <?php
     try {
         $connection = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=projeto', 'postgres', 'root');
@@ -212,6 +213,24 @@
     ?>
 </div>
 
+<!-- Modal de Cadastro de Produto -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Cadastrar Produto</h2>
+        <form method="POST" action="rascunho.php">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="255" required>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+            <label for="status">Status:</label>
+            <input type="checkbox" id="status" name="status" value="1" checked> Ativo
+            <br>
+            <input type="submit" value="Cadastrar">
+        </form>
+    </div>
+</div>
+
 <!-- Modal de Edição de Produto -->
 <div id="editModal" class="modal">
     <div class="modal-content">
@@ -224,7 +243,7 @@
             <label for="editDescription">Descrição:</label>
             <textarea id="editDescription" name="descricao" rows="4" required></textarea>
             <label for="editStatus">Status:</label>
-            <input type="checkbox" id="editStatus" name="status" value="1" checked> Ativo
+            <input type="checkbox" id="editStatus" name="status" value="1"> Ativo
             <br>
             <input type="submit" value="Salvar">
         </form>
@@ -232,16 +251,33 @@
 </div>
 
 <script>
+    function openAddModal() {
+        document.getElementById('addModal').style.display = 'block';
+    }
+
+    function closeAddModal() {
+        document.getElementById('addModal').style.display = 'none';
+    }
+
     function openEditModal(id, name, description, status) {
         document.getElementById('editId').value = id;
         document.getElementById('editName').value = name;
         document.getElementById('editDescription').value = description;
-        document.getElementById('editStatus').checked = status;
+        document.getElementById('editStatus').checked = status ? true : false;
         document.getElementById('editModal').style.display = 'block';
     }
 
     function closeEditModal() {
         document.getElementById('editModal').style.display = 'none';
+    }
+
+    // Fechar o modal quando clicar fora dele
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('addModal')) {
+            closeAddModal();
+        } else if (event.target == document.getElementById('editModal')) {
+            closeEditModal();
+        }
     }
 </script>
 

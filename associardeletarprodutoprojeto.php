@@ -203,7 +203,7 @@
             <th>Actions</th>
         </tr>
         <?php
-        $associacoes = $connection->query("SELECT pp.produto_id, pp.projeto_id, p.nome as produto_nome, pr.nome as projeto_nome FROM produto_projeto pp JOIN produto p ON pp.produto_id = p.id JOIN projeto pr ON pp.projeto_id = pr.id order by 1");
+        $associacoes = $connection->query("SELECT pp.produto_id, pp.projeto_id, p.nome as produto_nome, pr.nome as projeto_nome FROM produto_projeto pp JOIN produto p ON pp.produto_id = p.id JOIN projeto pr ON pp.projeto_id = pr.id order by pp.produto_id,pp.projeto_id");
         foreach ($associacoes as $associacao) {
             echo "<tr>";
             echo "<td>{$associacao['produto_nome']}</td>";
