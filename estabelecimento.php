@@ -11,10 +11,13 @@
             margin: 0;
             padding: 0;
         }
+
         .menu {
             background-color: #333;
             overflow: hidden;
+            margin-bottom: 20px;
         }
+
         .menu a {
             float: left;
             display: block;
@@ -23,10 +26,12 @@
             padding: 14px 16px;
             text-decoration: none;
         }
+
         .menu a:hover, .submenu a:hover {
             background-color: #ddd;
             color: black;
         }
+
         .submenu {
             display: none;
             position: absolute;
@@ -34,6 +39,7 @@
             min-width: 160px;
             z-index: 1;
         }
+
         .submenu a {
             float: none;
             color: white;
@@ -42,13 +48,39 @@
             display: block;
             text-align: left;
         }
+
         .menu .dropdown {
             float: left;
             overflow: hidden;
+            display: inline-block;
+            position: relative;
         }
+
         .menu .dropdown:hover .submenu {
             display: block;
         }
+
+        .menu .dropdown a {
+            padding: 8px 16px;
+            text-decoration: none;
+            background-color: #f2f2f2;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .menu .dropdown .submenu {
+            top: 100%;
+            left: 0;
+            background-color: #f9f9f9;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu .dropdown .submenu a {
+            padding: 8px 16px;
+            color: #333;
+        }
+
         .container {
             max-width: 800px;
             margin: 50px auto;
@@ -57,42 +89,71 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
             margin-bottom: 20px;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
-        .btn-edit, .btn-delete {
-            padding: 6px 10px;
+
+        .btn {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
-            text-decoration: none;
-            color: #fff;
+            color: white;
         }
+
         .btn-edit {
-            background-color: #007bff;
+            background-color: blue;
         }
+
         .btn-delete {
-            background-color: #dc3545;
+            background-color: red;
         }
+
+        .btn.view {
+            background-color: #FFA500;
+        }
+
+        .btn-create {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* .btn-create:hover, .btn:hover {
+            background-color: #45a049;
+        } */
+
         .modal {
             display: none;
             position: fixed;
@@ -103,27 +164,32 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 50px;
         }
+
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
         }
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
+
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -132,46 +198,55 @@
             border-radius: 4px;
             cursor: pointer;
         }
+/* 
         button:hover {
             background-color: #45a049;
-        }
+        } */
+
         label {
             display: block;
             margin-bottom: 5px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
+
+        input[type="text"], form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         input[type="submit"] {
             background-color: #4CAF50;
-            color: #fff;
+            color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+
         .success, .error {
             padding: 10px;
             border-radius: 5px;
             margin-top: 10px;
             text-align: center;
         }
+
         .success {
             background-color: #4CAF50;
             color: white;
         }
+
         .error {
             background-color: #f44336;
             color: white;
         }
+
     </style>
 </head>
 <body>
@@ -183,7 +258,7 @@
         try {
             $connection = new PDO('pgsql:host=127.0.0.1;port=5432;dbname=projeto', 'postgres', 'root');
             if ($connection) {
-                echo "Database connected";
+                echo "";
             }
         } catch (PDOException $e) {
             // report error message
@@ -260,10 +335,10 @@
                         <td>{$row['razaosocial']}</td>
                         <td>{$row['nomefantasia']}</td>
                         <td>
-                            <button class='btn-edit' onclick='openEditModal({$row['id']}, \"{$row['cnpj']}\", \"{$row['razaosocial']}\", \"{$row['nomefantasia']}\")'>Editar</button>
+                            <button class='btn btn-edit' onclick='openEditModal({$row['id']}, \"{$row['cnpj']}\", \"{$row['razaosocial']}\", \"{$row['nomefantasia']}\")'>Editar</button>
                             <form method='post' style='display:inline;'>
                                 <input type='hidden' name='deleteId' value='{$row['id']}'>
-                                <button type='submit' class='btn-delete'>Excluir</button>
+                                <button type='submit' class='btn btn-delete'>Excluir</button>
                             </form>
                         </td>
                    </tr>";   
