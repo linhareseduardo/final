@@ -241,29 +241,35 @@
             background-color: #f44336;
             color: white;
         }
+
+        .menu {
+            background-color: #333;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
     </style>
 </head>
 <body>
 
 <div class="menu">
-    <div class="dropdown">
-        <a href="#">Cadastro</a>
-        <div class="submenu">
-            <a href="cadastroestabelecimento.php">Estabelecimento</a>
-            <a href="cadastroprojeto.php">Projeto</a>
-            <a href="cadastroproduto.php">Produto</a>
-            <a href="associacaoprodutoprojeto.php">Associação Projeto-Produto</a>
-        </div>
-    </div>
-    <div class="dropdown">
-        <a href="#">Listagem</a>
-        <div class="submenu">
-            <a href="editardeletarestabelecimento.php">Estabelecimento</a>
-            <a href="editardeletarprojeto.php">Projeto</a>
-            <a href="editardeletarproduto.php">Produto</a>
-            <a href="associardeletarprodutoprojeto.php">Associação Projeto-Produto</a>
-        </div>
-    </div>
+    <a href="estabelecimento.php">Estabelecimento</a>
+    <a href="produto.php">Produto</a>
+    <a href="projeto.php">Projeto</a>
 </div>
 
 <div class="container">

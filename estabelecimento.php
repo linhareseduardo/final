@@ -150,9 +150,11 @@
             margin-bottom: 20px;
         }
 
-        /* .btn-create:hover, .btn:hover {
-            background-color: #45a049;
-        } */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .modal {
             display: none;
@@ -198,10 +200,6 @@
             border-radius: 4px;
             cursor: pointer;
         }
-/* 
-        button:hover {
-            background-color: #45a049;
-        } */
 
         label {
             display: block;
@@ -247,12 +245,40 @@
             color: white;
         }
 
+        .menu {
+            background-color: #333;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
     </style>
 </head>
 <body>
 
+    <div class="menu">
+        <a href="estabelecimento.php">Estabelecimento</a>
+        <a href="produto.php">Produto</a>
+        <a href="projeto.php">Projeto</a>
+    </div>
+     
+
     <div class="container">
-        <h1>Editar e deletar Estabelecimentos</h1>
+        <h1>Gerenciar Estabelecimentos</h1>
         <button id="openModalBtn">Cadastrar Estabelecimento</button>
         <?php
         try {
@@ -317,48 +343,48 @@
         }
         ?>
 
-        <table id="productTable">
-            <tr>
-                <th>id</th>
-                <th>cnpj</th>
-                <th>razaosocial</th>
-                <th>nomefantasia</th>
-                <th>Actions</th>
-            </tr>
-       
-           <?php 
-                foreach($result as $row) {          
-                   echo "        
-                   <tr>
-                        <td>{$row['id']}</td>
-                        <td>{$row['cnpj']}</td>
-                        <td>{$row['razaosocial']}</td>
-                        <td>{$row['nomefantasia']}</td>
-                        <td>
-                            <button class='btn btn-edit' onclick='openEditModal({$row['id']}, \"{$row['cnpj']}\", \"{$row['razaosocial']}\", \"{$row['nomefantasia']}\")'>Editar</button>
-                            <form method='post' style='display:inline;'>
-                                <input type='hidden' name='deleteId' value='{$row['id']}'>
-                                <button type='submit' class='btn btn-delete'>Excluir</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CNPJ</th>
+                    <th>Razão Social</th>
+                    <th>Nome Fantasia</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['cnpj']; ?></td>
+                        <td><?php echo $row['razaosocial']; ?></td>
+                        <td><?php echo $row['nomefantasia']; ?></td>
+                        <td class="btn-container">
+                        <button class="btn btn-edit" onclick="openEditModal(<?php echo $row['id']; ?>, '<?php echo $row['cnpj']; ?>', '<?php echo $row['razaosocial']; ?>', '<?php echo $row['nomefantasia']; ?>')">Editar</button>
+                            <form method="post" style="display: inline-block;">
+                                <input type="hidden" name="deleteId" value="<?php echo $row['id']; ?>">
+                                <button type="submit" class="btn btn-delete">Excluir</button>
                             </form>
+
                         </td>
-                   </tr>";   
-                }           
-            ?>
+                    </tr>
+                <?php } ?>
+            </tbody>
         </table>
     </div>
 
-    <div id="editModal" class="modal">
+    <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeEditModal">&times;</span>
-            <h2>Editar Estabelecimento</h2>
-            <form method="post">
-                <input type="hidden" name="editId" id="editId">
+            <span class="close">&times;</span>
+            <form id="modalForm" method="post">
+                <input type="hidden" id="editId" name="editId">
                 <label for="editCnpj">CNPJ:</label>
-                <input type="text" name="editCnpj" id="editCnpj" required>
+                <input type="text" id="editCnpj" name="editCnpj" required>
                 <label for="editRazaoSocial">Razão Social:</label>
-                <input type="text" name="editRazaoSocial" id="editRazaoSocial" required>
+                <input type="text" id="editRazaoSocial" name="editRazaoSocial" required>
                 <label for="editNomeFantasia">Nome Fantasia:</label>
-                <input type="text" name="editNomeFantasia" id="editNomeFantasia" required>
+                <input type="text" id="editNomeFantasia" name="editNomeFantasia" required>
                 <button type="submit">Salvar</button>
             </form>
         </div>
@@ -366,55 +392,45 @@
 
     <div id="addModal" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeAddModal">&times;</span>
-            <h2>Cadastrar Estabelecimento</h2>
-            <form method="post">
+            <span class="close">&times;</span>
+            <form id="addForm" method="post">
                 <label for="addCnpj">CNPJ:</label>
-                <input type="text" name="addCnpj" id="addCnpj" required>
+                <input type="text" id="addCnpj" name="addCnpj" required>
                 <label for="addRazaoSocial">Razão Social:</label>
-                <input type="text" name="addRazaoSocial" id="addRazaoSocial" required>
+                <input type="text" id="addRazaoSocial" name="addRazaoSocial" required>
                 <label for="addNomeFantasia">Nome Fantasia:</label>
-                <input type="text" name="addNomeFantasia" id="addNomeFantasia" required>
+                <input type="text" id="addNomeFantasia" name="addNomeFantasia" required>
                 <button type="submit">Cadastrar</button>
             </form>
         </div>
     </div>
 
     <script>
-        var editModal = document.getElementById("editModal");
-        var closeEditModal = document.getElementById("closeEditModal");
-        var openModalBtn = document.getElementById("openModalBtn");
-        var addModal = document.getElementById("addModal");
-        var closeAddModal = document.getElementById("closeAddModal");
-
-        function openEditModal(id, cnpj, razaosocial, nomefantasia) {
-            editModal.style.display = "block";
-            document.getElementById("editId").value = id;
-            document.getElementById("editCnpj").value = cnpj;
-            document.getElementById("editRazaoSocial").value = razaosocial;
-            document.getElementById("editNomeFantasia").value = nomefantasia;
+        function openEditModal(id, cnpj, razaoSocial, nomeFantasia) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editCnpj').value = cnpj;
+            document.getElementById('editRazaoSocial').value = razaoSocial;
+            document.getElementById('editNomeFantasia').value = nomeFantasia;
+            document.getElementById('modal').style.display = 'block';
         }
 
-        closeEditModal.onclick = function() {
-            editModal.style.display = "none";
-        }
+        document.getElementById('openModalBtn').onclick = function () {
+            document.getElementById('addModal').style.display = 'block';
+        };
 
-        openModalBtn.onclick = function() {
-            addModal.style.display = "block";
-        }
+        document.querySelectorAll('.close').forEach(function (closeBtn) {
+            closeBtn.onclick = function () {
+                closeBtn.parentElement.parentElement.style.display = 'none';
+            };
+        });
 
-        closeAddModal.onclick = function() {
-            addModal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == editModal) {
-                editModal.style.display = "none";
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            } else if (event.target == document.getElementById('addModal')) {
+                document.getElementById('addModal').style.display = 'none';
             }
-            if (event.target == addModal) {
-                addModal.style.display = "none";
-            }
-        }
+        };
     </script>
 </body>
 </html>
