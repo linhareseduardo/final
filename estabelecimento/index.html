@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Projetos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="menu">
+        <a href="estabelecimento.php">Estabelecimento</a>
+        <a href="produto.php">Produto</a>
+        <a href="projeto.php">Projeto</a>
+    </div>
+
+    <div class="container">
+        <h1>Gerenciar Estabelecimentos</h1>
+        <button class="btn-create" onclick="openCreateModal()">Cadastrar Estabelecimento</button>
+        <div id="estabelecimentos-table">
+            <!-- Conteúdo gerado dinamicamente via JavaScript -->
+        </div>
+    </div>
+
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <h2>Cadastrar Estabelecimento</h2>
+            <form id="createForm">
+                <label for="cnpj">Cnpj:</label>
+                <input type="text" id="cnpj" name="cnpj" required>
+                <label for="razaosocial">Razão Social:</label>
+                <input type="razaosocial" id="razaosocial" name="razaosocial" required>
+                <label for="nomefantasia">Nome Fantasia:</label>
+                <input type="nomefantasia" id="nomefantasia" name="nomefantasia" required>
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Editar Estabelecimento</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId" name="editId">
+                <label for="editCnpj">Cnpj:</label>
+                <input type="text" id="editCnpj" name="editCnpj" required>
+                <label for="editRazaoSocial">Razão Social:</label>
+                <input type="text" id="editRazaoSocial" name="editRazaoSocial" required>
+                <label for="editNomeFantasia">Nome Fantasia:</label>
+                <input type="text" id="editNomeFantasia" name="editNomeFantasia" required>
+                <input type="submit" value="Salvar">
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
